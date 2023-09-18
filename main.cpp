@@ -55,26 +55,25 @@ int main()
                 std::cout << std::endl;
                 int search_mode;
                 std::string word;
-                std::vector<Task> search;
                 search_menu();
                 std::cin >> search_mode;
                 std::cout << "Enter word: ";
                 std::cin >>word;
                 std::cout << std::endl;
-                list->searchTasks(search_mode,word,&search);
+                auto search = list->searchTasks(search_mode,word);
                 if(search.empty())
                 {
                     std::cerr << "Undefine word" << std::endl;
                 }
                 else
                 {
-                    for(Task search_task: search)
+                    for(auto search_task: search)
                     {
-                        std::cout << "Name:" << search_task.name << std::endl;
-                        std::cout << "Description:" << search_task.description << std::endl;
-                        std::cout << "Status:" << search_task.status << std::endl;
-                        std::cout << "Start Date:" << search_task.startDate << std::endl;
-                        std::cout << "End Date:" << search_task.endDate << std::endl;
+                        std::cout << "Name:" << search_task->name << std::endl;
+                        std::cout << "Description:" << search_task->description << std::endl;
+                        std::cout << "Status:" << search_task->status << std::endl;
+                        std::cout << "Start Date:" << search_task->startDate << std::endl;
+                        std::cout << "End Date:" << search_task->endDate << std::endl;
                         std::cout << std::endl;
                     }
                 }
@@ -86,32 +85,34 @@ int main()
                 std::cout << std::endl;
                 int modify_mode;
                 std::string word;
-                std::vector<Task> modify;
                 search_menu();
                 std::cin >> modify_mode;
                 std::cout << "Enter previos: ";
                 std::cin >>word;
                 std::cout << std::endl;
-                list->searchTasks(modify_mode,word,&modify);
+                auto modify = list->searchTasks(modify_mode,word);
                 if(modify.empty())
                 {
                     std::cerr << "Undefine word" << std::endl;
                 }
                 else
                 {
-                    for(Task modify_task: modify)
+                    for(auto modify_task: modify)
                     {
-                        std::cout << "Name:" << modify_task.name << std::endl;
-                        std::cout << "Description:" << modify_task.description << std::endl;
-                        std::cout << "Status:" << modify_task.status << std::endl;
-                        std::cout << "Start Date:" << modify_task.startDate << std::endl;
-                        std::cout << "End Date:" << modify_task.endDate << std::endl;
+                        std::cout << "Name:" << modify_task->name << std::endl;
+                        std::cout << "Description:" << modify_task->description << std::endl;
+                        std::cout << "Status:" << modify_task->status << std::endl;
+                        std::cout << "Start Date:" << modify_task->startDate << std::endl;
+                        std::cout << "End Date:" << modify_task->endDate << std::endl;
                         std::cout << std::endl;
                     }
                 }
                 std::cout << "Enter new: ";
                 std::cin >>word;
-                list->modifyTask(modify_mode,word,&modify);
+                for(auto modify_task: modify)
+                {
+                list->modifyTask(modify_mode,word,modify_task);
+                }
                 break;
             }
             case 3:
