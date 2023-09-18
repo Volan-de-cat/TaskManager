@@ -39,44 +39,44 @@ void taskManager::modifyTask(int mode, std::string word, std::vector<Task>::iter
     }
 }
 
-void taskManager::modifyTask(int mode, std::string word, std::vector<Task>* modify)
-{
-    std::string check;
-    switch(mode)
-    {
-        case 0:
-        for(Task task: *modify)
-        {
-            task.name = word;
-        }
-        break;
-        case 1:
-        for(Task task: *modify)
-        {
-            task.status = word;
-        }
-        break;
-        case 2:
-        for(Task task: *modify)
-        {
-            task.description = word;
-        }
-        break;
-        case 3:
-        for(Task task: *modify)
-        {
-            task.startDate = word;
-        }
-        break;
-        case 4:
-        for(Task task: *modify)
-        {
-            task.endDate = word;
-        }
-        break;
-        default:break;
-    }
-}
+// void taskManager::modifyTask(int mode, std::string word, std::vector<Task*>* modify)
+// {
+//     std::string check;
+//     switch(mode)
+//     {
+//         case 0:
+//         for(Task* task: *modify)
+//         {
+//             task->name = word;
+//         }
+//         break;
+//         case 1:
+//         for(Task* task: *modify)
+//         {
+//             task->status = word;
+//         }
+//         break;
+//         case 2:
+//         for(Task* task: *modify)
+//         {
+//             task->description = word;
+//         }
+//         break;
+//         case 3:
+//         for(Task* task: *modify)
+//         {
+//             task->startDate = word;
+//         }
+//         break;
+//         case 4:
+//         for(Task* task: *modify)
+//         {
+//             task->endDate = word;
+//         }
+//         break;
+//         default:break;
+//     }
+// }
 
 void taskManager::deleteTask(std::vector<Task>::iterator it)
 {
@@ -147,8 +147,9 @@ std::vector<Task>::iterator taskManager::searchFirstTask(int mode, std::string w
     return it;
 }
 
-void taskManager::searchTasks(int mode, std::string word, std::vector<Task>* search)
+std::vector<std::vector<Task>::iterator> taskManager::searchTasks(int mode, std::string word)
 {
+    std::vector<std::vector<Task>::iterator> search;
     switch(mode)
     {
         case 0:
@@ -156,7 +157,7 @@ void taskManager::searchTasks(int mode, std::string word, std::vector<Task>* sea
         {
             if(task.name == word)
             {
-               search->push_back(task);
+               search.push_back(std::find(tasks.begin(), tasks.end(), task));
             }
         }
         break;
@@ -165,7 +166,7 @@ void taskManager::searchTasks(int mode, std::string word, std::vector<Task>* sea
         {
             if(task.status == word)
             {
-               search->push_back(task);
+               search.push_back(std::find(tasks.begin(), tasks.end(), task));
             }
         }
         break;
@@ -174,7 +175,7 @@ void taskManager::searchTasks(int mode, std::string word, std::vector<Task>* sea
         {
             if(task.description == word)
             {
-               search->push_back(task);
+               search.push_back(std::find(tasks.begin(), tasks.end(), task));
             }
         }
         break;
@@ -183,7 +184,7 @@ void taskManager::searchTasks(int mode, std::string word, std::vector<Task>* sea
         {
             if(task.startDate == word)
             {
-               search->push_back(task);
+               search.push_back(std::find(tasks.begin(), tasks.end(), task));
             }
         }
         break;
@@ -192,7 +193,7 @@ void taskManager::searchTasks(int mode, std::string word, std::vector<Task>* sea
         {
             if(task.endDate == word)
             {
-               search->push_back(task);
+               search.push_back(std::find(tasks.begin(), tasks.end(), task));
             }
         }
         break;
@@ -200,6 +201,7 @@ void taskManager::searchTasks(int mode, std::string word, std::vector<Task>* sea
         std::cerr << "Uncorrect mode" << std::endl;
         break;
     }
+    return search;
 }
 
 void taskManager::Save()
